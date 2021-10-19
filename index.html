@@ -177,7 +177,7 @@
 <h3 id="1-The-Storage"><a href="#1-The-Storage" class="headerlink" title="1 The Storage"></a>1 The Storage</h3><h4 id="1-1-Storage-layout"><a href="#1-1-Storage-layout" class="headerlink" title="1.1 Storage layout"></a>1.1 Storage layout</h4><p>The design of  grasper is a hybrid, native graph storage. It also friendly to OLAP and RDMA.It can divide into two parts,RDMA memory and Normal memory.</p>
 <p>In normal memory, it contians Stirng-ID map, the topology of the vertex and edge infomation.The string-id map is a K-V store which recorded the type of the vertex and index number.The topology information was build as a directed adjacency list，which recorded the region id, in-neighbors , out-neighbors and id of property which refer to the index number in string-id map.</p>
 <p>In RDMA memory, it have a KVS for vertex and edge to store the vertex labels and property values,it have a K-V pair, to store the index and property.</p>
-<p>The basic structure is as below (the edge structure is similar to the vertex)</p>
+<p>The basic structure is as below (the edge structure is similar to the vertex）</p>
         
       
 
