@@ -16,7 +16,7 @@
 <meta property="og:description" content="The design and Implementation of Grasper0 AbstractThis article will show the grasper based on it’s design and implementation from several aspects as list The storage,  communication and query. 1 The S">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-10-18T11:33:27.000Z">
-<meta property="article:modified_time" content="2021-10-18T11:35:20.147Z">
+<meta property="article:modified_time" content="2021-10-19T02:36:59.953Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -47,7 +47,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="" class="js-avatar">
+			<img src="/img/miao.jpg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/"></a></h1>
@@ -105,7 +105,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="" class="js-avatar">
+				<img src="/img/miao.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author"></h1>
@@ -180,6 +180,8 @@
 <p>In normal memory, it contians Stirng-ID map, the topology of the vertex and edge infomation.The string-id map is a K-V store which recorded the type of the vertex and index number.The topology information was build as a directed adjacency list，which recorded the region id, in-neighbors , out-neighbors and id of property which refer to the index number in string-id map.</p>
 <p>In RDMA memory, it have a KVS for vertex and edge to store the vertex labels and property values,it have a K-V pair, to store the index and property.</p>
 <p>The basic structure is as below (the edge structure is similar to the vertex)</p>
+<span id="more"></span>
+
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Vertex</span> &#123;</span></span><br><span class="line">    <span class="keyword">vid_t</span> id;</span><br><span class="line">    <span class="comment">// label_t label;</span></span><br><span class="line">    vector&lt;<span class="keyword">vid_t</span>&gt; in_nbs;</span><br><span class="line">    vector&lt;<span class="keyword">vid_t</span>&gt; out_nbs;</span><br><span class="line">    vector&lt;<span class="keyword">label_t</span>&gt; vp_list;</span><br><span class="line">    <span class="function">string <span class="title">DebugString</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">V_KVpair</span> &#123;</span></span><br><span class="line">    <span class="keyword">vpid_t</span> key;</span><br><span class="line">    <span class="keyword">value_t</span> value;</span><br><span class="line">    <span class="function">string <span class="title">DebugString</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">VProperty</span> &#123;</span></span><br><span class="line">    <span class="keyword">vid_t</span> id;</span><br><span class="line">    vector&lt;V_KVpair&gt; plist;</span><br><span class="line">    <span class="function">string <span class="title">DebugString</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>it’s worth to mentioning that the Vproperty and EProperty plist which stored the E_or V_KVpair, in the first of their vector, the key is always 0 and it’s value is represent the label. </p>
@@ -523,7 +525,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">是个菜鸡</div>
   	  	
     	</section>
     
