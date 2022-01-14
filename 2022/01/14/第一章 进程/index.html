@@ -15,14 +15,14 @@
 <meta property="og:site_name" content="Sandy&#39;s blog">
 <meta property="og:description" content="第一章 进程1.1 进程的基本概念进程是一个虚拟化的概念，在操作系统中，进程代表的就是一个正在运行的程序。一个进程的运行需要以下几个资源，1.cpu 2.内存空间（资源）3.指令 进程将指令和相关代码数据，从磁盘读到属于自己的进程内存中，形成了自己的进程空间。加载的时候分为懒加载和提前加载两种。将代码和数据加载到自己的进程内存后，操作系统为程序的运行时stack分配空间，保存函数的参数，如局部变量">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/Users/duhan/hexo/themes/yilia/source/img/ostep-1.png">
-<meta property="og:image" content="http://example.com/Users/duhan/themes/yilia/source/img/v2-c1ae5ac03fdbc6c0cff74b55de620e20_1440w.png">
+<meta property="og:image" content="http://example.com/2022/01/14/%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E8%BF%9B%E7%A8%8B/img/ostep-1.png">
+<meta property="og:image" content="http://example.com/2022/01/14/%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E8%BF%9B%E7%A8%8B/img/v2-c1ae5ac03fdbc6c0cff74b55de620e20_1440w.png">
 <meta property="article:published_time" content="2022-01-13T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-01-14T02:37:05.400Z">
+<meta property="article:modified_time" content="2022-01-14T02:45:27.695Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="ostep">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/Users/duhan/hexo/themes/yilia/source/img/ostep-1.png">
+<meta name="twitter:image" content="http://example.com/2022/01/14/%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E8%BF%9B%E7%A8%8B/img/ostep-1.png">
   
     <link rel="alternative" href="/atom.xml" title="Sandy&#39;s blog" type="application/atom+xml">
   
@@ -180,7 +180,9 @@
       
         <h3 id="第一章-进程"><a href="#第一章-进程" class="headerlink" title="第一章 进程"></a>第一章 进程</h3><h4 id="1-1-进程的基本概念"><a href="#1-1-进程的基本概念" class="headerlink" title="1.1 进程的基本概念"></a>1.1 进程的基本概念</h4><p>进程是一个虚拟化的概念，在操作系统中，进程代表的就是一个正在运行的程序。一个进程的运行需要以下几个资源，<strong>1.cpu 2.内存空间（资源）3.指令</strong></p>
 <p>进程将指令和相关代码数据，从磁盘读到属于自己的进程内存中，形成了自己的进程空间。加载的时候分为懒加载和提前加载两种。将代码和数据加载到自己的进程内存后，操作系统为程序的运行时stack分配空间，保存函数的参数，如局部变量，返回地址。堆用于显示的申请内存。还有执行IO方面的初始化。</p>
-<h4 id="1-2-进程的状态"><a href="#1-2-进程的状态" class="headerlink" title="1.2 进程的状态"></a>1.2 进程的状态</h4><p>​        <img src="/Users/duhan/hexo/themes/yilia/source/img/ostep-1.png" alt="ostep-1"></p>
+<span id="more"></span>
+
+<h4 id="1-2-进程的状态"><a href="#1-2-进程的状态" class="headerlink" title="1.2 进程的状态"></a>1.2 进程的状态</h4><p><img src="./img/ostep-1.png" alt="ostep-1"></p>
 <p>还有一些时候 有初始init的状态，还有final状态，通过返回子进程的返回代码看有没有执行成功，完成后，父进程进行最后一次调用，并告诉操作系统可以清除这个进程。</p>
 <p>为了方便管理，操作系统在逻辑上虚拟化了进程所需的所有资源。在逻辑上，每个进程都有自己独立的cpu和内存空间。在实际的操作系统中，会采用时分复用的技术，以轮换的方式切换进程，此时操作系统会保存现场，切换上下文（关于进程切换 后面详谈），同时每个进程独立的拥有很大的内存空间。</p>
 <h4 id="1-3创建进程（unix）"><a href="#1-3创建进程（unix）" class="headerlink" title="1.3创建进程（unix）"></a>1.3创建进程（unix）</h4><p>通过fork和exec来调用，wait 用于等待子进程完成。当使用fork的时候，就相当于从调用fork的地方，派生出一个几乎完全一样的进程，他会复制所有的数据到自己的进程空间，父子进程的数据并不共享。因为他们不属于同一个进程内存。</p>
@@ -192,7 +194,7 @@
 <p>通过fork和exec 的调用，可以使程序有机会在fork之后和exec之前执行相关的代码。</p>
 <h5 id="1-1-1-进程的内存空间"><a href="#1-1-1-进程的内存空间" class="headerlink" title="1.1.1 进程的内存空间"></a>1.1.1 进程的内存空间</h5><p>有4g的内存空间，1:3，分为内核内存和用户内存。</p>
 <p>虚拟的内存空间的大小为2^64 bit or 2^32bit ,取决于是32位还是64位</p>
-<p><img src="/Users/duhan/themes/yilia/source/img/v2-c1ae5ac03fdbc6c0cff74b55de620e20_1440w.png" alt="img"></p>
+<p><img src="./img/v2-c1ae5ac03fdbc6c0cff74b55de620e20_1440w.png" alt="img"></p>
 <p>地址空间的最上端是内核的代码，属于kernel space，存储了环境变量和命令行的参数。</p>
 
       
