@@ -6,17 +6,13 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>grasper | Sandy&#39;s blog</title>
+  <title>Tag: ostep | Sandy&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="The design and Implementation of Grasper0 AbstractThis article will show the grasper based on it’s design and implementation from several aspects as list The storage,  communication and query. 1 The S">
-<meta property="og:type" content="article">
-<meta property="og:title" content="grasper">
-<meta property="og:url" content="http://example.com/2021/10/18/grasper/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Sandy&#39;s blog">
+<meta property="og:url" content="http://example.com/tags/ostep/index.html">
 <meta property="og:site_name" content="Sandy&#39;s blog">
-<meta property="og:description" content="The design and Implementation of Grasper0 AbstractThis article will show the grasper based on it’s design and implementation from several aspects as list The storage,  communication and query. 1 The S">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-10-18T11:33:27.000Z">
-<meta property="article:modified_time" content="2021-10-19T02:48:37.196Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -154,215 +150,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-grasper" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      grasper
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2022" class="archive-year">2022</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2022/01/14/%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E8%BF%9B%E7%A8%8B/" class="archive-article-date">
+  	<time datetime="2022-01-13T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-14</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2022/01/14/%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E8%BF%9B%E7%A8%8B/">第一章 进程</a>
     </h1>
   
 
-        
-        <a href="/2021/10/18/grasper/" class="archive-article-date">
-  	<time datetime="2021-10-18T11:33:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="The-design-and-Implementation-of-Grasper"><a href="#The-design-and-Implementation-of-Grasper" class="headerlink" title="The design and Implementation of Grasper"></a>The design and Implementation of Grasper</h2><h3 id="0-Abstract"><a href="#0-Abstract" class="headerlink" title="0 Abstract"></a>0 Abstract</h3><p>This article will show the grasper based on it’s design and implementation from several aspects as list</p>
-<p>The storage,  communication and query.</p>
-<h3 id="1-The-Storage"><a href="#1-The-Storage" class="headerlink" title="1 The Storage"></a>1 The Storage</h3><h4 id="1-1-Storage-layout"><a href="#1-1-Storage-layout" class="headerlink" title="1.1 Storage layout"></a>1.1 Storage layout</h4><p>The design of  grasper is a hybrid, native graph storage. It also friendly to OLAP and RDMA.It can divide into two parts,RDMA memory and Normal memory.</p>
-<p>In normal memory, it contians Stirng-ID map, the topology of the vertex and edge infomation.The string-id map is a K-V store which recorded the type of the vertex and index number.The topology information was build as a directed adjacency list，which recorded the region id, in-neighbors , out-neighbors and id of property which refer to the index number in string-id map.</p>
-<p>In RDMA memory, it have a KVS for vertex and edge to store the vertex labels and property values,it have a K-V pair, to store the index and property.</p>
-<p>The basic structure is as below (the edge structure is similar to the vertex）</p>
-<span id="more"></span>
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ostep</a>
+        		</li>
+      		
+		</ul>
+	</div>
 
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Vertex</span> &#123;</span></span><br><span class="line">    <span class="keyword">vid_t</span> id;</span><br><span class="line">    <span class="comment">// label_t label;</span></span><br><span class="line">    vector&lt;<span class="keyword">vid_t</span>&gt; in_nbs;</span><br><span class="line">    vector&lt;<span class="keyword">vid_t</span>&gt; out_nbs;</span><br><span class="line">    vector&lt;<span class="keyword">label_t</span>&gt; vp_list;</span><br><span class="line">    <span class="function">string <span class="title">DebugString</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">V_KVpair</span> &#123;</span></span><br><span class="line">    <span class="keyword">vpid_t</span> key;</span><br><span class="line">    <span class="keyword">value_t</span> value;</span><br><span class="line">    <span class="function">string <span class="title">DebugString</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">VProperty</span> &#123;</span></span><br><span class="line">    <span class="keyword">vid_t</span> id;</span><br><span class="line">    vector&lt;V_KVpair&gt; plist;</span><br><span class="line">    <span class="function">string <span class="title">DebugString</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          
 
-<p>it’s worth to mentioning that the Vproperty and EProperty plist which stored the E_or V_KVpair, in the first of their vector, the key is always 0 and it’s value is represent the label. </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// insert label to VProperty</span></span><br><span class="line"> V_KVpair v_pair;</span><br><span class="line"> v_pair.key = <span class="built_in">vpid_t</span>(vid, <span class="number">0</span>);</span><br><span class="line"> Tool::<span class="built_in">str2int</span>(<span class="built_in">to_string</span>(label), v_pair.value);</span><br><span class="line"> <span class="comment">// push to property_list of v</span></span><br><span class="line"> vp-&gt;plist.<span class="built_in">push_back</span>(v_pair);</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-2-Storage-Implemention"><a href="#2-2-Storage-Implemention" class="headerlink" title="2.2 Storage Implemention"></a>2.2 Storage Implemention</h4><p>Grasper load the data from the HDFS,then it will partition the graph topology and their properties follow the data layout.the grasper use a hash to achieve the data loading balance.    </p>
-<p>The grasper also have built indexes for the query steps, the index will be build in every query engine.also,it will creates an index map for the index keys, then this map will transfer to the respective experts to some query steps.</p>
-<p>RDMA-Enabled KVS splits the storage into header and entry,</p>
-<h3 id="2-The-Communication"><a href="#2-The-Communication" class="headerlink" title="2 The Communication"></a>2 The Communication</h3><h4 id="2-1-The-communication-between-client-and-worker"><a href="#2-1-The-communication-between-client-and-worker" class="headerlink" title="2.1 The communication between client and worker"></a>2.1 The communication between client and worker</h4><p>The client will send the request to the master node, the master will have a listener to check the request from client. When the master get the request, it will find the worker with least tasks remained, then return a target_engine_id to the client, then the client will send request to the target_worker,the worker also have a listener to check if it receive a request from the  worker,then the worker will process the query.</p>
-<p>![image-20211012214749287](/Users/duhan/Library/Application Support/typora-user-images/image-20211012214749287.png)</p>
-<h4 id="2-2-The-RDMA-Communication"><a href="#2-2-The-RDMA-Communication" class="headerlink" title="2.2 The RDMA Communication"></a>2.2 The RDMA Communication</h4><p>​    In each query server, there is an <em>RDMA Mailbox</em> form the by SendBufs and a (w × n) RecvBufs  , where w is the number of worker threads in a query server and n is the total number of query servers. Each <em>SendBuf</em>[i] loads the sending messages of a worker thread for RDMA communication, and each <em>RecvBufs</em>[i][j] keeps those messages that are received from query server  and processed by the worker thread. They commnuicate by the RDMA will reduce the latency efficiently.</p>
-<p>​    The Grasper defined A message which is the basic communication unit among all worker threads, it was a temporary result of a query step,which recorded some metadata.</p>
-<h3 id="3-The-Query"><a href="#3-The-Query" class="headerlink" title="3 The Query"></a>3 The Query</h3><p>This is the key part of grasper, the design of query engine and Expert model.</p>
-<h4 id="3-1-Query-Plan-Construction"><a href="#3-1-Query-Plan-Construction" class="headerlink" title="3.1 Query Plan Construction"></a>3.1 Query Plan Construction</h4><p>The grasper adopt the Gremlin as the query language, and also achieved the parallelism control based on the workload of query step.The grasper have a concept call the flow type, to describe the pattern of the query step, it have three flow types: <em>sequential,barrier</em> and <em>branch</em>.</p>
-<p><strong>Sequential:</strong>  it means that this step received a message, after processing,  generate a new message for the next step. different sequential steps of a message are independent with each other, they can be processed in parallel by multiple threads.</p>
-<p><strong>Barrier</strong>: it means that the step need to collect the messages from the previous step, and use a aggregation function.then it can go to the next step,So it need a synchronization before go to the next step.</p>
-<p><strong>branch</strong>: There are two type of the branch, <em>spawn</em> and  <em>merge</em>, in the spawn type,  it will create the multiple sub-query branches, each sub-query will do their query independently and parallelly, in the merge step, the result of query-step will finally merged into one query.</p>
-<p>The query string was transform into an ordered list of <em>step_objs</em>, the structure is as below, it maintains the meta data of the step, step type, the associated parameters, and the index of the next expert.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Expert_Object</span> &#123;</span></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// type</span></span><br><span class="line">    EXPERT_T expert_type;</span><br><span class="line">    <span class="comment">// parameters</span></span><br><span class="line">    vector&lt;<span class="keyword">value_t</span>&gt; params;</span><br><span class="line">    <span class="comment">// index of next expert</span></span><br><span class="line">    <span class="keyword">int</span> next_expert;</span><br><span class="line">    <span class="comment">// flag for sending data to remote nodes</span></span><br><span class="line">    <span class="keyword">bool</span> send_remote;</span><br><span class="line">    <span class="built_in">Expert_Object</span>() : <span class="built_in">next_expert</span>(<span class="number">-1</span>), <span class="built_in">send_remote</span>(<span class="literal">false</span>) &#123;&#125;</span><br><span class="line">    <span class="built_in">Expert_Object</span>(EXPERT_T type) : <span class="built_in">expert_type</span>(type), <span class="built_in">next_expert</span>(<span class="number">-1</span>), <span class="built_in">send_remote</span>(<span class="literal">false</span>) &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">AddParam</span><span class="params">(<span class="keyword">int</span> key)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">AddParam</span><span class="params">(string s)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">IsBarrier</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">    <span class="function">string <span class="title">DebugString</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>Based on this step_objects and a tree-based paesing rule,the query will recursively construct the logical query plan.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LogicPlan</span> &#123;</span></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">LogicPlan</span>() &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">LogicPlan</span><span class="params">(<span class="keyword">qid_t</span> id)</span> : qid(id) &#123;</span>&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Feed</span><span class="params">(vector&lt;Expert_Object&gt; &amp; experts_)</span> </span>&#123;</span><br><span class="line">        experts = <span class="built_in">move</span>(experts_);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">qid_t</span> qid;</span><br><span class="line">    vector&lt;Expert_Object&gt; experts;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>Based on this query plan, the expert model will have more specific optimizations on it.</p>
-<h4 id="3-2-Expert-Model"><a href="#3-2-Expert-Model" class="headerlink" title="3.2 Expert Model"></a>3.2 Expert Model</h4><p>This is the key of the Grasper, an expert could be considered as a unique_type for process of one specific category of query steps.Each expert maintains its own structures like indexes , cache for tailored optimizations.There are a set of experts form the expert pool, it is the query engine of the Grasper.</p>
-<p>This is the basic structure of one expert.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AbstractExpert</span> &#123;</span></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">AbstractExpert</span>(<span class="keyword">int</span> id, DataStore* data_store, CoreAffinity* 		core_affinity):<span class="built_in">id_</span>(id), <span class="built_in">data_store_</span>(data_store), <span class="built_in">core_affinity_</span>(core_affinity) &#123;&#125;</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">AbstractExpert</span>() &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">const</span> <span class="keyword">int</span> <span class="title">GetExpertId</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> id_;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(<span class="keyword">const</span> vector&lt;Expert_Object&gt; &amp; experts, Message &amp; msg)</span> </span>= <span class="number">0</span>;</span><br><span class="line"> <span class="keyword">protected</span>:</span><br><span class="line">    <span class="comment">// Data Store</span></span><br><span class="line">    DataStore* data_store_;</span><br><span class="line">    <span class="comment">// Core affinity</span></span><br><span class="line">    CoreAffinity* core_affinity_;</span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">// Expert ID</span></span><br><span class="line">    <span class="keyword">int</span> id_;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h5 id="How-Expert-Model-process-a-query"><a href="#How-Expert-Model-process-a-query" class="headerlink" title="How Expert Model process a query"></a>How Expert Model process a query</h5><p>Firstly，it will initialize an expert pool and all the expert will be prepared and keep alive.The expert pool is build upon a thread pool, it is a core-bounded.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      node_ = Node::<span class="built_in">StaticInstance</span>();</span><br><span class="line">      <span class="built_in">init_potential_core_pool</span>();</span><br><span class="line">      num_cores_ = cpuinfo_-&gt;<span class="built_in">GetTotalThreadCount</span>();</span><br><span class="line">      <span class="comment">// Calculate Number of threads for each thread division</span></span><br><span class="line">      <span class="comment">// Fail when number of threads &lt; 6</span></span><br><span class="line">      <span class="keyword">if</span> (!<span class="built_in">get_num_thread_for_each_division</span>(config_-&gt;global_num_threads)) &#123;</span><br><span class="line">          config_-&gt;global_enable_expert_division = <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// Assign thread id to each division according to last function</span></span><br><span class="line">      <span class="built_in">get_core_id_for_each_division</span>();</span><br><span class="line">      <span class="comment">// Pair Expert Type and ExpertDivisionType</span></span><br><span class="line">      <span class="built_in">load_expert_division</span>();</span><br><span class="line">      <span class="comment">// Pair CoreId and ThreadId</span></span><br><span class="line">      <span class="built_in">load_core_to_thread_map</span>();</span><br><span class="line">      <span class="comment">// Assign stealing list to each thread</span></span><br><span class="line">      <span class="built_in">load_steal_list</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>each thread has a received buffer to receive the message. The thread will try to read one message from its buffer, when it succeeds, the expert will parse this message to obtain its step type invoke Thread execute to the corresponding expert to process it.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">           <span class="comment">// timer::start_timer(tid + 2 * num_thread_);</span></span><br><span class="line">           mailbox_-&gt;<span class="built_in">Sweep</span>(tid);</span><br><span class="line">           Message recv_msg;</span><br><span class="line">           <span class="comment">// timer::start_timer(tid + 3 * num_thread_);</span></span><br><span class="line">           <span class="keyword">bool</span> success = mailbox_-&gt;<span class="built_in">TryRecv</span>(tid, recv_msg);</span><br><span class="line">           times_[tid] = timer::<span class="built_in">get_usec</span>();</span><br><span class="line">           <span class="keyword">if</span> (success) &#123;</span><br><span class="line">               <span class="comment">// timer::stop_timer(tid + 3 * num_thread_);</span></span><br><span class="line">               <span class="built_in">execute</span>(tid, recv_msg);</span><br><span class="line">               times_[tid] = timer::<span class="built_in">get_usec</span>();</span><br><span class="line">               <span class="comment">// timer::stop_timer(tid + 2 * num_thread_);</span></span><br><span class="line">           &#125; </span><br></pre></td></tr></table></figure>
-
-<h5 id="Special-Optimizations-of-Expert"><a href="#Special-Optimizations-of-Expert" class="headerlink" title="Special Optimizations of Expert"></a>Special Optimizations of Expert</h5><p>Fristly, the adaptive parallelism control.The workload of some query step may be heavy.so the expert will measure the workload by the number of message that it recevied. some expert will record the informations that below.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Number of Threads</span></span><br><span class="line"> <span class="keyword">int</span> num_thread_;</span><br><span class="line"> <span class="keyword">int</span> machine_id_;</span><br></pre></td></tr></table></figure>
-
-<p>In order to balanced the workload, the Expert have an <em>Stealing List</em>, Grasper provide a mechanism for idle threads to steal messages from the buffers of the other threads to improve the utilization of the cpu and reduce the latency.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (steal_list.<span class="built_in">size</span>() == <span class="number">0</span>) &#123;  <span class="comment">// num_thread_ &lt; 6         success = mailbox_-&gt;TryRecv((tid + 1) % num_thread_, recv_msg);         if (success) &#123;         // timer::stop_timer(tid + 3 * num_thread_);         execute(tid, recv_msg);         // timer::stop_timer(tid + 2 * num_thread_);          &#125;        &#125; else &#123;  // num_thread_ &gt;= 6        for (auto itr = steal_list.begin(); itr != steal_list.end(); itr++) &#123;         if (times_[tid] &lt; times_[*itr] + STEALTIMEOUT)          continue;         // timer::start_timer(tid + 2 * num_thread_);         // timer::start_timer(tid + 3 * num_thread_);         success = mailbox_-&gt;TryRecv(*itr, recv_msg);         if (success) &#123;          // timer::stop_timer(tid + 3 * num_thread_);           execute(tid, recv_msg);           // timer::stop_timer(tid + 2 * num_thread_);           break;             &#125;        &#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>the priority of the stealing is, first check the recevie buffer of other thread the same thread region, then the other regions but the same NUMA, finally the other NUMA nodes.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (type != <span class="number">0</span>) &#123;        <span class="comment">// try local msg queue with higher priority        if (local_msgs[tid]-&gt;Size() != 0) &#123;            local_msgs[tid]-&gt;WaitAndPop(msg);            pthread_spin_unlock(&amp;recv_locks[tid]);            return true;        &#125;    &#125;    // try rdma memory    for (int i = 0; i &lt; node_.get_local_size(); i++) &#123;        int machine_id = (schedulers[tid].machine_rr_cnt++) % node_.get_local_size();        if (machine_id != node_.get_local_rank() &amp;&amp; CheckRecvBuf(tid, machine_id)) &#123;            obinstream um;            FetchMsgFromRecvBuf(tid, machine_id, um);            pthread_spin_unlock(&amp;recv_locks[tid]);            um &gt;&gt; msg;            return true;        &#125;    &#125;</span></span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
         </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/10/18/grasper/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2022/01/14/%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E8%BF%9B%E7%A8%8B/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          第一章 进程
-        
-      </div>
-    </a>
   
   
-    <a href="/2021/10/18/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello World</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -385,9 +226,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

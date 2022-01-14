@@ -152,6 +152,95 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-第一章 进程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/14/%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E8%BF%9B%E7%A8%8B/">第一章 进程</a>
+    </h1>
+  
+
+        
+        <a href="/2022/01/14/%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E8%BF%9B%E7%A8%8B/" class="archive-article-date">
+  	<time datetime="2022-01-13T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="第一章-进程"><a href="#第一章-进程" class="headerlink" title="第一章 进程"></a>第一章 进程</h3><h4 id="1-1-进程的基本概念"><a href="#1-1-进程的基本概念" class="headerlink" title="1.1 进程的基本概念"></a>1.1 进程的基本概念</h4><p>进程是一个虚拟化的概念，在操作系统中，进程代表的就是一个正在运行的程序。一个进程的运行需要以下几个资源，<strong>1.cpu 2.内存空间（资源）3.指令</strong></p>
+<p>进程将指令和相关代码数据，从磁盘读到属于自己的进程内存中，形成了自己的进程空间。加载的时候分为懒加载和提前加载两种。将代码和数据加载到自己的进程内存后，操作系统为程序的运行时stack分配空间，保存函数的参数，如局部变量，返回地址。堆用于显示的申请内存。还有执行IO方面的初始化。</p>
+<h4 id="1-2-进程的状态"><a href="#1-2-进程的状态" class="headerlink" title="1.2 进程的状态"></a>1.2 进程的状态</h4><p>​        <img src="/Users/duhan/hexo/themes/yilia/source/img/ostep-1.png" alt="ostep-1"></p>
+<p>还有一些时候 有初始init的状态，还有final状态，通过返回子进程的返回代码看有没有执行成功，完成后，父进程进行最后一次调用，并告诉操作系统可以清除这个进程。</p>
+<p>为了方便管理，操作系统在逻辑上虚拟化了进程所需的所有资源。在逻辑上，每个进程都有自己独立的cpu和内存空间。在实际的操作系统中，会采用时分复用的技术，以轮换的方式切换进程，此时操作系统会保存现场，切换上下文（关于进程切换 后面详谈），同时每个进程独立的拥有很大的内存空间。</p>
+<h4 id="1-3创建进程（unix）"><a href="#1-3创建进程（unix）" class="headerlink" title="1.3创建进程（unix）"></a>1.3创建进程（unix）</h4><p>通过fork和exec来调用，wait 用于等待子进程完成。当使用fork的时候，就相当于从调用fork的地方，派生出一个几乎完全一样的进程，他会复制所有的数据到自己的进程空间，父子进程的数据并不共享。因为他们不属于同一个进程内存。</p>
+<p>由于同时拷贝所有的数据，对于系统的开销太大，<strong>当父子进程对物理内存进行读的操作时，二者是共享的，但是如果父或子进程要进行写操作的时候，此时父进程才会将要操作的内容复制给子进程。这样父子进程在逻辑上仍然是严格互相独立的两个进程，各自维护各自的参数，只是在物理上实现了读时共享，写时复制</strong></p>
+<p>如果在fork前 open一个文件，父子同时对该文件进行写入会怎样。</p>
+<p>由于父子进程的文件描述符表是相同的，但是在子进程中对fd（文件描述符表中的项）进行了修改，这时会发生写时拷贝过程，内核在物理内存中分配一个新的页面存储子进程原文件描述符fd存在页面的内容，然后再进修写操作，实现将fd修改为1，也就是标准输出。但是父进程的fd并没有发生改变，还是与其他的子进程共享文件描述符表，因此仍然是对文件foobar.txt进行操作</p>
+<p>关于fpid，父进程的fpid指向子进程，</p>
+<p> fork出错可能有两种原因：<br>  1）当前的进程数已经达到了系统规定的上限，这时errno的值被设置为EAGAIN。<br>  2）系统内存不足，这时errno的值被设置为ENOMEM。</p>
+<p>通过fork和exec 的调用，可以使程序有机会在fork之后和exec之前执行相关的代码。</p>
+<h5 id="1-1-1-进程的内存空间"><a href="#1-1-1-进程的内存空间" class="headerlink" title="1.1.1 进程的内存空间"></a>1.1.1 进程的内存空间</h5><p>有4g的内存空间，1:3，分为内核内存和用户内存。</p>
+<p>虚拟的内存空间的大小为2^64 bit or 2^32bit ,取决于是32位还是64位</p>
+<p><img src="/Users/duhan/themes/yilia/source/img/v2-c1ae5ac03fdbc6c0cff74b55de620e20_1440w.png" alt="img"></p>
+<p>地址空间的最上端是内核的代码，属于kernel space，存储了环境变量和命令行的参数。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ostep</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/01/14/%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E8%BF%9B%E7%A8%8B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-grasper" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -293,7 +382,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2021 John Doe
+    		&copy; 2022 John Doe
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -374,6 +463,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">ostep</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
