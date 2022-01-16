@@ -174,25 +174,7 @@
       
         <h4 id="进程在cpu上受限"><a href="#进程在cpu上受限" class="headerlink" title="进程在cpu上受限"></a>进程在cpu上受限</h4><p>cpu是通过时分共享来切换，实现cpu的虚拟化，但是这会遇到两个挑战，1.性能，切换性能的开销2.控制权，操作系统负责系统的资源管理，而作为进程不可以拥有所有的权限。</p>
 <p>陷阱指令：操作系统通过陷阱指令 将系统调用封装成一个过程调用，内部含有陷阱指令。内核在启动时就设置好了陷阱表，在发生某些中断的时候就会调用一些代码。</p>
-<h4 id="进程之间的切换"><a href="#进程之间的切换" class="headerlink" title="进程之间的切换"></a>进程之间的切换</h4><p>cpu上只能执行一个进程，那么操作系统要如何夺回系统的控制权 去切换另一个进程呢？</p>
-<p>答：时钟中断</p>
-<p>在中断时，系统就会重新的拥有控制权，去进行进程的调度，决定切换与否。如果需要进行切换则会进行 <strong>上下文切换</strong></p>
-<p>上下文切换，简单说就是系统对正在进行的进程，保存一些寄存器的值（例如保存到他的内核栈），并为即将执行的进程恢复一些寄存器的值。</p>
-<p>下面是切换上下文的顺序：</p>
-<p>进程A——时钟中断—-保存寄存器A到内核栈——转向内核模式—- A保存到进程结构—–从进程结构中恢复B—–陷阱返回B—从内核栈B恢复寄存器B—-切换用户模式—跳到B的PC寄存器—-进程B</p>
-<h3 id="进程的调度"><a href="#进程的调度" class="headerlink" title="进程的调度"></a>进程的调度</h3><p>两个指标（响应时间和周转时间）</p>
-<p>响应=首次运行-到达</p>
-<p>周转=完成-到达</p>
-<p><strong>1FIFO</strong></p>
-<p><strong>2.SJF</strong></p>
-<p><strong>3.STCF</strong>（抢占式的最短时间优先）当有新的作业来时，会检查当前哪个的完成时间最短。</p>
-<h5 id="1-新的调度算法-轮询"><a href="#1-新的调度算法-轮询" class="headerlink" title="1.新的调度算法 轮询"></a>1.新的调度算法 轮询</h5><p>经典问题:什么是上下文切换</p>
-<p>上下文一般包括cpu寄存器和pc 是进程运行依赖的环境</p>
-<p>1.要从A进程切换到B进程时，操作系统需要记录下这个进程的一些信息，保存到内核栈中。保存之后切换到，跳到B的寄存器的位置。</p>
-<p>经典问题：系统调用和上下文切换，系统调用一致都是一个进程，只是在他运行时，某些功能如IO会调用某些内核IO函数，会暴露相应的接口</p>
-<p>经典问题：用户态和内核态的区别</p>
-<h4 id="进程地址空间"><a href="#进程地址空间" class="headerlink" title="进程地址空间"></a>进程地址空间</h4><p>进程将所有的数据，状态都保存在内存中，目的是为了操作系系统可以更快的切换进程。进程的地址空间都是虚拟的，cpu通过保存基址和边界寄存器去将虚拟地址转换成真实的物理地址，这个过程叫做动态<strong>重定位</strong>，只有当程序真正执行时才会执行重定位。</p>
-
+        
       
 
       
@@ -359,69 +341,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/10/18/grasper/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/18/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2021/10/18/hello-world/" class="archive-article-date">
-  	<time datetime="2021-10-18T10:34:56.347Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/18/hello-world/">展开全文 >></a>
         </p>
       
 
