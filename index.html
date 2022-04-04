@@ -152,6 +152,82 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-第六章-并发-2-3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/03/%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%B9%B6%E5%8F%91-2-3/">第六章 并发 2-3</a>
+    </h1>
+  
+
+        
+        <a href="/2022/04/03/%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%B9%B6%E5%8F%91-2-3/" class="archive-article-date">
+  	<time datetime="2022-04-02T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="第六章-基于锁的并发数据结构（concurrent-并发访问）"><a href="#第六章-基于锁的并发数据结构（concurrent-并发访问）" class="headerlink" title="第六章 基于锁的并发数据结构（concurrent 并发访问）"></a>第六章 基于锁的并发数据结构（concurrent 并发访问）</h3><h4 id="并行计数器"><a href="#并行计数器" class="headerlink" title="并行计数器"></a>并行计数器</h4><p>如何提高锁数据结构的性能</p>
+<p>懒惰计数器的实现，一个核心cpu + 多个局部cpu，有一个全局计数器，然后每个线程上有一个单独的计数器。如果某个核心线程想要增加就在自己的核心局部上增加，每个核心上有一个单独的锁，然后设定一个阈值，当超过这个阈值的时候就可以进行转移到全局计数器上，转移的过程就是一个获取全局锁的过程。</p>
+<p><strong>分析</strong>：本质上是一个读写分离的操作，将写操作给并行化，单一读，并行写，多个线程可以不必竞争同一个临界区而是多个临界区，提高并行的速度</p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ostep</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/04/03/%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%B9%B6%E5%8F%91-2-3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-4.1 每日面筋" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -831,74 +907,10 @@
 
 
   
-    <article id="post-grasper" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/18/grasper/">grasper</a>
-    </h1>
-  
-
-        
-        <a href="/2021/10/18/grasper/" class="archive-article-date">
-  	<time datetime="2021-10-18T11:33:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="The-design-and-Implementation-of-Grasper"><a href="#The-design-and-Implementation-of-Grasper" class="headerlink" title="The design and Implementation of Grasper"></a>The design and Implementation of Grasper</h2><h3 id="0-Abstract"><a href="#0-Abstract" class="headerlink" title="0 Abstract"></a>0 Abstract</h3><p>This article will show the grasper based on it’s design and implementation from several aspects as list</p>
-<p>The storage,  communication and query.</p>
-<h3 id="1-The-Storage"><a href="#1-The-Storage" class="headerlink" title="1 The Storage"></a>1 The Storage</h3><h4 id="1-1-Storage-layout"><a href="#1-1-Storage-layout" class="headerlink" title="1.1 Storage layout"></a>1.1 Storage layout</h4><p>The design of  grasper is a hybrid, native graph storage. It also friendly to OLAP and RDMA.It can divide into two parts,RDMA memory and Normal memory.</p>
-<p>In normal memory, it contians Stirng-ID map, the topology of the vertex and edge infomation.The string-id map is a K-V store which recorded the type of the vertex and index number.The topology information was build as a directed adjacency list，which recorded the region id, in-neighbors , out-neighbors and id of property which refer to the index number in string-id map.</p>
-<p>In RDMA memory, it have a KVS for vertex and edge to store the vertex labels and property values,it have a K-V pair, to store the index and property.</p>
-<p>The basic structure is as below (the edge structure is similar to the vertex）</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/18/grasper/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    </nav>
   
 
 
