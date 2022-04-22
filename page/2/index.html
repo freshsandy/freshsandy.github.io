@@ -152,6 +152,156 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-第二章 机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/16/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E6%9C%BA%E5%88%B6/">第二章 机制</a>
+    </h1>
+  
+
+        
+        <a href="/2022/01/16/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E6%9C%BA%E5%88%B6/" class="archive-article-date">
+  	<time datetime="2022-01-15T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="进程在cpu上受限"><a href="#进程在cpu上受限" class="headerlink" title="进程在cpu上受限"></a>进程在cpu上受限</h4><p>cpu是通过时分共享来切换，实现cpu的虚拟化，但是这会遇到两个挑战，1.性能，切换性能的开销2.控制权，操作系统负责系统的资源管理，而作为进程不可以拥有所有的权限。</p>
+<p>陷阱指令：操作系统通过陷阱指令 将系统调用封装成一个过程调用，内部含有陷阱指令。内核在启动时就设置好了陷阱表，在发生某些中断的时候就会调用一些代码。</p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ostep</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/01/16/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E6%9C%BA%E5%88%B6/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-第一章 进程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/14/%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E8%BF%9B%E7%A8%8B/">第一章 进程</a>
+    </h1>
+  
+
+        
+        <a href="/2022/01/14/%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E8%BF%9B%E7%A8%8B/" class="archive-article-date">
+  	<time datetime="2022-01-13T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="第一章-进程"><a href="#第一章-进程" class="headerlink" title="第一章 进程"></a>第一章 进程</h3><h4 id="1-1-进程的基本概念"><a href="#1-1-进程的基本概念" class="headerlink" title="1.1 进程的基本概念"></a>1.1 进程的基本概念</h4><p>进程是一个虚拟化的概念，在操作系统中，进程代表的就是一个正在运行的程序。一个进程的运行需要以下几个资源，<strong>1.cpu 2.内存空间（资源）3.指令</strong></p>
+<p>进程将指令和相关代码数据，从磁盘读到属于自己的进程内存中，形成了自己的进程空间。加载的时候分为懒加载和提前加载两种。将代码和数据加载到自己的进程内存后，操作系统为程序的运行时stack分配空间，保存函数的参数，如局部变量，返回地址。堆用于显示的申请内存。还有执行IO方面的初始化。</p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ostep</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/01/14/%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E8%BF%9B%E7%A8%8B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-grasper" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
