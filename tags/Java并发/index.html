@@ -6,19 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>第四章 分页2 | Sandy&#39;s blog</title>
+  <title>Tag: Java并发 | Sandy&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="关键问题：如何让页表变得更小 线性页表（基于数组），在系统上会占用过多的内存，页是为了满足逻辑地址到物理地址的转换的，所以一页中页表项的个数是逻辑空间的大小，每个页表项的大小是物理空间的槽大小。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="第四章 分页2">
-<meta property="og:url" content="http://example.com/2022/02/21/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%88%86%E9%A1%B52/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Sandy&#39;s blog">
+<meta property="og:url" content="http://example.com/tags/Java%E5%B9%B6%E5%8F%91/index.html">
 <meta property="og:site_name" content="Sandy&#39;s blog">
-<meta property="og:description" content="关键问题：如何让页表变得更小 线性页表（基于数组），在系统上会占用过多的内存，页是为了满足逻辑地址到物理地址的转换的，所以一页中页表项的个数是逻辑空间的大小，每个页表项的大小是物理空间的槽大小。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-02-20T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-03-24T15:42:58.189Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="ostep">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Sandy&#39;s blog" type="application/atom+xml">
@@ -155,196 +150,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-第四章 分页2" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      第四章 分页2
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2022" class="archive-year">2022</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2022/04/24/java%20%E5%B9%B6%E5%8F%91%20-1/" class="archive-article-date">
+  	<time datetime="2022-04-23T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-24</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2022/04/24/java%20%E5%B9%B6%E5%8F%91%20-1/">第一章 并发与线程安全性</a>
     </h1>
   
 
-        
-        <a href="/2022/02/21/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%88%86%E9%A1%B52/" class="archive-article-date">
-  	<time datetime="2022-02-20T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>关键问题</strong>：如何让页表变得更小</p>
-<p>线性页表（基于数组），在系统上会占用过多的内存，页是为了满足逻辑地址到物理地址的转换的，所以一页中页表项的个数是逻辑空间的大小，每个页表项的大小是物理空间的槽大小。</p>
-<span id="more"></span>
-
-<p>1.只让页表变大（会产生很多的内存碎片）</p>
-<p>2.段页式</p>
-<p>基本逻辑就是先分段，后分页</p>
-<p>![截屏2022-02-21 上午10.38.23](/Users/duhan/Library/Application Support/typora-user-images/截屏2022-02-21 上午10.38.23.png)</p>
-<p>问题：仍然没有解决一些问题，因为分段还是不够灵活，如果有一个大而稀疏的堆，仍然会导致很多的外部碎片</p>
-<p>3.多级页表（最终解法）</p>
-<p>目标：不会让没有使用的页，也驻留在内存中，减少内存中驻留的页表数量。其实现思想也非常简单，将页表分成页大小的单元，如果整个页表项（PTE）无效，就完全不分配该页的页表，所以有了 <strong>页目录</strong>表用来记录映射的哪些页是完全没有使用的，如果有则告知页表的地址。</p>
-<p>4.在地址转换过程中会记住TLB</p>
-<p>在即使有多级（两级）的页表下，硬件也会首先去检查TLB有没有命中，如果有命中，则直接拿到物理地址，如果没有命中，那么会去在TLB中更新两次（页目录表和页表）。</p>
-<p>5.反向页表</p>
-<p>这里的反向指的是，一般的页表都是每个进程有一个独立的页表，然后记录了该进程虚拟地址到物理地址的转化，但是反向页表是记录了哪一个真实的物理页正在被哪一个进程访问（by pid)</p>
-<h4 id="虚拟内存中的特殊技巧"><a href="#虚拟内存中的特殊技巧" class="headerlink" title="虚拟内存中的特殊技巧"></a>虚拟内存中的特殊技巧</h4><p>COW (写时复制技术)，当A进程正在使用某页的时候，B进程也想使用，这时候会直接将A该页的地址空间映射到B，而不是复制给B，同时将该页改为只读模式，那么就会一直保持这个状态，但是当有新的页需要写入的时候，这时候，操作系统会惰性的分配一个新的页，同时将该页的内容映射到新的地址空间。</p>
-<h4 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h4><p>关于虚拟内存的os就告一段落了，试着做一些小小的总结。</p>
-<p>需要牢记以下问题的答案 ：什么是进程？os是如何调度进程的？什么是上下文切换？进程如何访问内存？进程的地址空间分布？进程访问内存时会发生什么？如何派生新的进程？为什么这么派生？从段到页的页表发展逻辑是什么？什么是TLB？替换页表的缓存机制？</p>
-<p>以及有一个经典问题，代码是如何变成程序的？</p>
-<p>关于虚拟内存主要分成两个部分，一个是os对于进程这个概念的虚拟抽象，还有一个就是os对进程的管理，也就是最重要的从虚拟到物理的转化过程，以及os是如何不断优化这个转换过程的逻辑的。</p>
-<p>（关于 编译 装载 链接的过程还需要再了解）</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ostep</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java并发</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/02/21/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%88%86%E9%A1%B52/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2022/03/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          第一章 java面向对象
-        
-      </div>
-    </a>
   
   
-    <a href="/2022/02/16/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E5%88%86%E6%AE%B5/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">第三章 分段+分页1</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -367,9 +226,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

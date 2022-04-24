@@ -6,20 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>第四章 分页2 | Sandy&#39;s blog</title>
+  <title>第一章 并发与线程安全性 | Sandy&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="关键问题：如何让页表变得更小 线性页表（基于数组），在系统上会占用过多的内存，页是为了满足逻辑地址到物理地址的转换的，所以一页中页表项的个数是逻辑空间的大小，每个页表项的大小是物理空间的槽大小。">
+  <meta name="description" content="并发简介1、并发的目的是为了主要解决资源利用率，公平性和便利性。 2.同一个进程中有多个程序控制流，每个称为线程是 是系统的基本调度单位，会共享进程范围的资源，内存句柄和文件句柄，线程存在的主要原因吗就是为了发挥多处理器的优势，可以充分的使用计算机的资源，同时多线程的多处理器执行，也可以有效提高 系统的吞吐率， 3.处理异步的数据 服务器在接受多个远程客户端的套接字请求时，为每个链接其各自的进程，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第四章 分页2">
-<meta property="og:url" content="http://example.com/2022/02/21/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%88%86%E9%A1%B52/index.html">
+<meta property="og:title" content="第一章 并发与线程安全性">
+<meta property="og:url" content="http://example.com/2022/04/24/java%20%E5%B9%B6%E5%8F%91%20-1/index.html">
 <meta property="og:site_name" content="Sandy&#39;s blog">
-<meta property="og:description" content="关键问题：如何让页表变得更小 线性页表（基于数组），在系统上会占用过多的内存，页是为了满足逻辑地址到物理地址的转换的，所以一页中页表项的个数是逻辑空间的大小，每个页表项的大小是物理空间的槽大小。">
+<meta property="og:description" content="并发简介1、并发的目的是为了主要解决资源利用率，公平性和便利性。 2.同一个进程中有多个程序控制流，每个称为线程是 是系统的基本调度单位，会共享进程范围的资源，内存句柄和文件句柄，线程存在的主要原因吗就是为了发挥多处理器的优势，可以充分的使用计算机的资源，同时多线程的多处理器执行，也可以有效提高 系统的吞吐率， 3.处理异步的数据 服务器在接受多个远程客户端的套接字请求时，为每个链接其各自的进程，">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-02-20T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-03-24T15:42:58.189Z">
+<meta property="og:image" content="https://typora-1308350170.cos.ap-guangzhou.myqcloud.com/typora/%E6%88%AA%E5%B1%8F2022-04-24%20%E4%B8%8B%E5%8D%8810.40.33.png">
+<meta property="og:image" content="https://typora-1308350170.cos.ap-guangzhou.myqcloud.com/typora/%E6%88%AA%E5%B1%8F2022-04-25%20%E4%B8%8A%E5%8D%8812.21.23.png">
+<meta property="article:published_time" content="2022-04-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-04-24T16:31:32.124Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="ostep">
+<meta property="article:tag" content="Java并发">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://typora-1308350170.cos.ap-guangzhou.myqcloud.com/typora/%E6%88%AA%E5%B1%8F2022-04-24%20%E4%B8%8B%E5%8D%8810.40.33.png">
   
     <link rel="alternative" href="/atom.xml" title="Sandy&#39;s blog" type="application/atom+xml">
   
@@ -155,47 +158,62 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-第四章 分页2" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-java 并发 -1" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      第四章 分页2
+      第一章 并发与线程安全性
     </h1>
   
 
         
-        <a href="/2022/02/21/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%88%86%E9%A1%B52/" class="archive-article-date">
-  	<time datetime="2022-02-20T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-21</time>
+        <a href="/2022/04/24/java%20%E5%B9%B6%E5%8F%91%20-1/" class="archive-article-date">
+  	<time datetime="2022-04-23T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-24</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>关键问题</strong>：如何让页表变得更小</p>
-<p>线性页表（基于数组），在系统上会占用过多的内存，页是为了满足逻辑地址到物理地址的转换的，所以一页中页表项的个数是逻辑空间的大小，每个页表项的大小是物理空间的槽大小。</p>
+        <h2 id="并发简介"><a href="#并发简介" class="headerlink" title="并发简介"></a>并发简介</h2><p>1、并发的目的是为了主要解决<strong>资源利用率，公平性和便利性</strong>。</p>
+<p>2.同一个进程中有多个程序控制流，每个称为线程是 <strong>是系统的基本调度单位</strong>，会共享进程范围的资源，内存句柄和文件句柄，线程存在的主要原因吗就是为了发挥多处理器的优势，可以<strong>充分的使用计算机的资源</strong>，同时多线程的多处理器执行，也可以有效提高 <strong>系统的吞吐率</strong>，</p>
+<p>3.<strong>处理异步的数据</strong></p>
+<p>服务器在接受多个远程客户端的套接字请求时，为每个链接其各自的进程，并同步IO，就会降低开发的难度，但如果有某个进程因为读操作，但数据还没有到来，那么这个读操作将会被阻塞，并且在阻塞期间所有的请求处理都会被停顿，所以要使用非阻塞的IO，但是其复杂性要远高于同步IO且容易出错。</p>
 <span id="more"></span>
 
-<p>1.只让页表变大（会产生很多的内存碎片）</p>
-<p>2.段页式</p>
-<p>基本逻辑就是先分段，后分页</p>
-<p>![截屏2022-02-21 上午10.38.23](/Users/duhan/Library/Application Support/typora-user-images/截屏2022-02-21 上午10.38.23.png)</p>
-<p>问题：仍然没有解决一些问题，因为分段还是不够灵活，如果有一个大而稀疏的堆，仍然会导致很多的外部碎片</p>
-<p>3.多级页表（最终解法）</p>
-<p>目标：不会让没有使用的页，也驻留在内存中，减少内存中驻留的页表数量。其实现思想也非常简单，将页表分成页大小的单元，如果整个页表项（PTE）无效，就完全不分配该页的页表，所以有了 <strong>页目录</strong>表用来记录映射的哪些页是完全没有使用的，如果有则告知页表的地址。</p>
-<p>4.在地址转换过程中会记住TLB</p>
-<p>在即使有多级（两级）的页表下，硬件也会首先去检查TLB有没有命中，如果有命中，则直接拿到物理地址，如果没有命中，那么会去在TLB中更新两次（页目录表和页表）。</p>
-<p>5.反向页表</p>
-<p>这里的反向指的是，一般的页表都是每个进程有一个独立的页表，然后记录了该进程虚拟地址到物理地址的转化，但是反向页表是记录了哪一个真实的物理页正在被哪一个进程访问（by pid)</p>
-<h4 id="虚拟内存中的特殊技巧"><a href="#虚拟内存中的特殊技巧" class="headerlink" title="虚拟内存中的特殊技巧"></a>虚拟内存中的特殊技巧</h4><p>COW (写时复制技术)，当A进程正在使用某页的时候，B进程也想使用，这时候会直接将A该页的地址空间映射到B，而不是复制给B，同时将该页改为只读模式，那么就会一直保持这个状态，但是当有新的页需要写入的时候，这时候，操作系统会惰性的分配一个新的页，同时将该页的内容映射到新的地址空间。</p>
-<h4 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h4><p>关于虚拟内存的os就告一段落了，试着做一些小小的总结。</p>
-<p>需要牢记以下问题的答案 ：什么是进程？os是如何调度进程的？什么是上下文切换？进程如何访问内存？进程的地址空间分布？进程访问内存时会发生什么？如何派生新的进程？为什么这么派生？从段到页的页表发展逻辑是什么？什么是TLB？替换页表的缓存机制？</p>
-<p>以及有一个经典问题，代码是如何变成程序的？</p>
-<p>关于虚拟内存主要分成两个部分，一个是os对于进程这个概念的虚拟抽象，还有一个就是os对进程的管理，也就是最重要的从虚拟到物理的转化过程，以及os是如何不断优化这个转换过程的逻辑的。</p>
-<p>（关于 编译 装载 链接的过程还需要再了解）</p>
+<p>4.一些标注的说明</p>
+<ol>
+<li><strong>UnsafeSequence</strong> 一种常见的并发安全问题，称为竞态状态</li>
+</ol>
+<p>5，LIveness，要保证线程是会终止的</p>
+<p>6.性能问题，线程存在的主要目的就是为了提升性能，但是有关的上下文切换和同步问题，会带来很多额外的开销。</p>
+<h3 id="线程的安全性"><a href="#线程的安全性" class="headerlink" title="线程的安全性"></a>线程的安全性</h3><p>线程的安全性，其实可以理解为 多个线程访问一个对象的正确性，所以我们需要采取一些同步的方式，对对象的状态进行一个正确的管理。</p>
+<p><em>“编写安全的代码，其核心是对<strong>状态访问操作进行管理</strong>”</em></p>
+<p>对象的状态指的是存储的状态变量（对象的实例化）中的数据性，并且其对象还依赖于其他的对象，例如hashmap的值还依赖于很多entry的值。对象的安全取决于 <strong>是否被多个线程访问</strong>，这里指的是访问对象的方式，需要使用同步来协同对像的可变状态的访问。</p>
+<h4 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h4><p><em><strong>无状态的对象一定是线程安全的</strong></em></p>
+<p>它既不包含任何域，也不包含其他对象的引用，这个域可以理解为类中定义的数据和变量。当多个线程，同时读取这个变量，然后重新赋值时候，可能会造成结果的丢失，如在servelet 中包括++ 的操作。</p>
+<p>当某个运算的结果取决于多个线程交替执行的顺序时，称为<strong>竞态条件</strong>，最常见的就是“check-then-act”，先检查后执行，然而在检查的过程中，数据会发送变化，竞态条件最可能是基于一种可能失效的观察结果来做出的判断。<em>与数据竞争不同</em>。</p>
+<p>竞态条件不一定产生错误，calm理论。</p>
+<p>关于计数器的实现，可以使用线程安全类 AtomicLong. AtomicReference.</p>
+<p><strong><img src="https://typora-1308350170.cos.ap-guangzhou.myqcloud.com/typora/%E6%88%AA%E5%B1%8F2022-04-24%20%E4%B8%8B%E5%8D%8810.40.33.png" alt="截屏2022-04-24 下午10.40.33"></strong></p>
+<p>即使这两个类都是原子性的，但是还是不能保证在判断条件中，同时保证lastnumber和lastreference的值被同时更新，这样还是会产生竞态条件。</p>
+<p><strong>原子操作</strong>：在A线程的视角看B线程，要们B是完全执行，要么是完全未执行，把这样的操作称为原子操作。</p>
+<p><strong>加锁的机制</strong></p>
+<p>1.内置锁</p>
+<p>java提供<strong>同步代码块</strong>，做为锁，它的锁就是<strong>方法调用所在的对象</strong>，静态方法则是以class对象作为锁。这是monitor lock在进入同步代码块前会自动获得锁，退出的时候会释放锁。这是一种互斥锁。</p>
+<p>方法或代码块 用synchronized 修饰，该代码会原子的执行，且多个线程在执行该代码块时也不会互相干扰。</p>
+<p>2.重入锁</p>
+<p>为什么需要可重入锁，可重入锁是对已经获得的锁的再次获得，因为某个线程请求一个其他线程的锁时，发出的请求就会阻塞。内置一个count，jvm会记录下某个线程的持有锁的数量</p>
+<p>![截屏2022-02-05 下午2.21.37](/Users/duhan/Library/Application Support/typora-user-images/截屏2022-02-05 下午2.21.37.png)</p>
+<h4 id="锁来保护状态"><a href="#锁来保护状态" class="headerlink" title="锁来保护状态"></a>锁来保护状态</h4><p>仅仅将复合的操作，变为原子的操作是不够的，我们需要同步来协调不同线程对某个变量的访问。只有可变状态变量，且在访问它的时候需要持有同一个锁，只有这种情况下是锁保护的</p>
+<p>常见的错误： <strong>并不是在写入共享变量的时候才需要同步</strong></p>
+<p>常见的锁约定是，将所有访问对象状态的代码放到锁中，放进同步代码块中，比如说vector 中的所有方法都用Synchornized 修饰。</p>
+<h4 id="活跃性与性能"><a href="#活跃性与性能" class="headerlink" title="活跃性与性能"></a>活跃性与性能</h4><p><img src="https://typora-1308350170.cos.ap-guangzhou.myqcloud.com/typora/%E6%88%AA%E5%B1%8F2022-04-25%20%E4%B8%8A%E5%8D%8812.21.23.png" alt="截屏2022-04-25 上午12.21.23"></p>
+<p>在这里没有使用atomiclong，其只适用于单个变量的原子操作 原因是，已经采用了同步代码块的方式进行同步，保证多个可变状态的原子操作，不需要再使用额外的同步操作。需要在安全性，简单性和性能间做 trade-off。</p>
+<p>对长时间的操作，如系统IO时，不可以持有锁。</p>
 
       
 
@@ -230,7 +248,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ostep</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Java并发</a>
         		</li>
       		
 		</ul>
@@ -286,7 +304,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/02/21/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%88%86%E9%A1%B52/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/24/java%20%E5%B9%B6%E5%8F%91%20-1/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -300,18 +318,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/03/24/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          第一章 java面向对象
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/02/16/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E5%88%86%E6%AE%B5/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">第三章 分段+分页1</div>
+    <a href="/2022/04/22/%E7%AC%AC%E4%B8%83%E7%AB%A0%20%E4%BF%A1%E5%8F%B7%E9%87%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">第八章 并发 2-4</div>
       <i class="icon-circle-right"></i>
     </a>
   
