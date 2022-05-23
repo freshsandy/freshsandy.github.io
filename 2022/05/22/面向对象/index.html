@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>第五章 并发 1 | Sandy&#39;s blog</title>
+  <title>第一章 java面向对象 | Sandy&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="对于进程，我们 将状态保存到进程控制块(Process Control Block，PCB)。现在，我们需要一个或多个线程 控制块(Thread Control Block，TCB)，保存每个线程的状态。但是，与进程相比，线程之 间的上下文切换有一点主要区别:地址空间保持不变(即不需要切换当前使用的页表)。 如果某进程中有两个线程，他们会共享进程的地址空间栈，所有在自己栈上的东西称为 线程本地栈。">
+  <meta name="description" content="面向对象为什么需要面向对象而不是面向过程？面向对象的核心就是可扩展性， 因为我们需要代码的重复利用，因为面向过程中，如果我们需要这个过程中的功能，或者希望复用代码的部分功能或逻辑时，都需要对整个过程进行修改，那这样非常不利于程序的二次开发，每次需要进行更新或者修改时，我们都需要对整个程序进行修改，工程量很大，而且很多是重复且没有意义的工作。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第五章 并发 1">
-<meta property="og:url" content="http://example.com/2022/03/27/%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E5%B9%B6%E5%8F%91/index.html">
+<meta property="og:title" content="第一章 java面向对象">
+<meta property="og:url" content="http://example.com/2022/05/22/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/index.html">
 <meta property="og:site_name" content="Sandy&#39;s blog">
-<meta property="og:description" content="对于进程，我们 将状态保存到进程控制块(Process Control Block，PCB)。现在，我们需要一个或多个线程 控制块(Thread Control Block，TCB)，保存每个线程的状态。但是，与进程相比，线程之 间的上下文切换有一点主要区别:地址空间保持不变(即不需要切换当前使用的页表)。 如果某进程中有两个线程，他们会共享进程的地址空间栈，所有在自己栈上的东西称为 线程本地栈。">
+<meta property="og:description" content="面向对象为什么需要面向对象而不是面向过程？面向对象的核心就是可扩展性， 因为我们需要代码的重复利用，因为面向过程中，如果我们需要这个过程中的功能，或者希望复用代码的部分功能或逻辑时，都需要对整个过程进行修改，那这样非常不利于程序的二次开发，每次需要进行更新或者修改时，我们都需要对整个程序进行修改，工程量很大，而且很多是重复且没有意义的工作。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-03-26T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-03-28T04:27:19.123Z">
+<meta property="article:published_time" content="2022-05-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-22T15:00:46.874Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="ostep">
+<meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Sandy&#39;s blog" type="application/atom+xml">
@@ -155,47 +155,54 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-第五章 并发" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-面向对象" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      第五章 并发 1
+      第一章 java面向对象
     </h1>
   
 
         
-        <a href="/2022/03/27/%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E5%B9%B6%E5%8F%91/" class="archive-article-date">
-  	<time datetime="2022-03-26T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-27</time>
+        <a href="/2022/05/22/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" class="archive-article-date">
+  	<time datetime="2022-05-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-22</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>对于进程，我们 将状态保存到进程控制块(Process Control Block，PCB)。现在，我们需要一个或多个线程 控制块(Thread Control Block，TCB)，保存每个线程的状态。<strong>但是，与进程相比，线程之 间的上下文切换有一点主要区别:地址空间保持不变(即不需要切换当前使用的页表)。</strong></p>
-<p>如果某进程中有两个线程，他们会共享进程的地址空间栈，所有在自己栈上的东西称为 线程本地栈。</p>
-<p>对于 共享数据的处理核心问题：<strong>不可控的调度</strong></p>
+        <h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><h4 id="为什么需要面向对象而不是面向过程？"><a href="#为什么需要面向对象而不是面向过程？" class="headerlink" title="为什么需要面向对象而不是面向过程？"></a>为什么需要面向对象而不是面向过程？</h4><p>面向对象的核心就是<strong>可扩展性</strong>，</p>
+<p>因为我们需要<strong>代码的重复利用</strong>，因为面向过程中，如果我们需要这个过程中的功能，或者希望复用代码的部分功能或逻辑时，都需要对整个过程进行修改，那这样非常不利于程序的二次开发，每次需要进行更新或者修改时，我们都需要对整个程序进行修改，工程量很大，而且很多是重复且没有意义的工作。</p>
 <span id="more"></span>
 
-<p><strong>因为在访问共享数据时，由于某些非原子性的操作，导致了竞态条件的发生</strong>，一个线程的某个操作的过程中，发生了上下文的切换，导致了临界区数据的异常。</p>
-<p>ps：为什么要研究并发</p>
-<p>因为中断的原因，中断是os获得cpu控制权的方式，也是os调度进程的方式，那么正因为中断的机制，导致了很多数据结构，页表的访问都需要非常的小心.</p>
-<p>p_thread join 会等待线程的执行完成，用 join 来确保在退出或进入下一阶段计算之前完成所有这些工作。</p>
-<p>mutex_lock，锁的实质是，在调用lock时，如果没有其他线程获得改锁，那么这个线程将获取改锁并进入临界区，此时其他线程在获取调用该锁时，只会进行等待而无法从这个锁的调用中返回。</p>
-<h3 id="锁的实质"><a href="#锁的实质" class="headerlink" title="锁的实质"></a>锁的实质</h3><p>锁的功能是 确保临界区只有一个线程在运行。锁本质上是一个保存了当前锁的状态的变量，锁的本质是锁了对象，锁了线程，是对象和线程获得了锁，所以该锁的状态发生改变，从而阻止其他线程获得锁，确保临界区只有一个线程在其中。</p>
-<h4 id="如何实现一个锁？"><a href="#如何实现一个锁？" class="headerlink" title="如何实现一个锁？"></a>如何实现一个锁？</h4><p>如果我们要实现某个东西，首先要知道他的功能和基本标准，对于一个锁来说，我们可以从三个方面来评判，第一点是互斥性，第二点是表现性，第三点公平性。</p>
-<p>互斥是要锁需要保证最基本的功能，表现是希望锁的开销很小，在不同场景下开销的对比，例如一个线程争枪，多个线程一个cpu争抢，多个线程多个cpu争抢。公平是希望各个线程在争抢过程中获得该锁的几率是平等的。</p>
-<p><strong>自旋锁</strong>：就是锁住之后，其他线程会在等待这个锁的时候，会不断的循环等待，检查是否可以获得锁，</p>
-<p>锁的实现具体有以下四种</p>
-<h5 id="test-and-set-（当前flag，自己想要获得锁（1））"><a href="#test-and-set-（当前flag，自己想要获得锁（1））" class="headerlink" title="test and set （当前flag，自己想要获得锁（1））"></a>test and set （当前flag，自己想要获得锁（1））</h5><p>flag 为1 时表示获得了该锁。0 表示空余，但是在flag为1 时，因该方法而自旋的线程，或不停持续写入新的值 1 ，造成不必要的开销。</p>
-<h5 id="CAS-copy-and-swap"><a href="#CAS-copy-and-swap" class="headerlink" title="CAS copy and swap"></a>CAS copy and swap</h5><p>当不一样时 再交换</p>
-<h5 id="fetch-and-add"><a href="#fetch-and-add" class="headerlink" title="fetch and add"></a>fetch and add</h5><p>原子指令时，原子式的对某一块内存区域++；</p>
-<p>通过这个属性，可以在锁内维护两个变量，一个是当前获取锁的线程的任期，一个是进入等待队列的锁的任期，当某线程释放锁的时候，对当前任期++，当两者任期匹配时，该线程获得锁。</p>
-<p>该方法可以保证线程 会被执行，而不是处在一直等待的情况。</p>
-<h5 id="load-linked-and-store-conditional"><a href="#load-linked-and-store-conditional" class="headerlink" title="load linked and store conditional"></a>load linked and store conditional</h5><p>如果在更新和进入临界判定区这段时间内，没有人修改过内存地址，则可以更新。</p>
+<p>所以我们希望将每一个小的过程独立出来，把一个大的程序，分成一个个小的主体。我们希望每个过程的主体可以被重复的使用，那么过程的独立—–&gt;意味着我们需要对这个主体进行<strong>抽象</strong>，在面向对象中，新的角度看待程序，<strong>程序=对象+交互</strong>，对于面向过程来说每个部分都是一个流水线上的一个步骤，大家协同完成，串行的执行某个特定的流程，但是面向对象就像是一个篮球队，每个队员都会根据不同的信息来源做出不同的选择，然后通过对象（队员之间的配合）完成特定的任务。</p>
+<p>面向对象的思想非常的巧妙，因为计算机也可以类比成一个巨大的状态机，状态机中的状态可以看作是对象状态的合集，计算机内部也可以本质上看作是对象之间的交互，这正好与面向对象的思想不谋而合。</p>
+<p>所以我们将这个主体设计成了一个新的东西—&gt;<strong>对象</strong></p>
+<p>面向对象有很多的优点，更好的逻辑性和可读性，更好的方便代码的管理，更好将程序进行抽象建模。</p>
+<p><strong>允许我们根据问题来描述问题，而不是根据方案</strong></p>
+<h4 id="什么是类"><a href="#什么是类" class="headerlink" title="什么是类"></a>什么是类</h4><p>类可以被称作<strong>一组相似事物的统称</strong>，一组不是一个，是相似而不是完全一样，看待事物的角度决定了类抽象的角度，如何设计优秀的类是一个非常高级的，类中有两个，一个是属性，一个是方法，属性和方法都有最小化和单一化的原则。</p>
+<h4 id="什么是对象"><a href="#什么是对象" class="headerlink" title="什么是对象"></a>什么是对象</h4><p>如果说类是统称，那么对象就是具体类的实现</p>
+<p>程序是由一个个对象组成的，对象之间的通信，数据在对象间的流动构成了程序，每一个对象都是一台小型的计算机“状态机”，有着自己的状态，数据和对数据操作的封装，以及于其他对象的通信方式。</p>
+<p>当对象被看作是计算机时，实际上他就会有最高层的抽象了，在操作系统中，操作系统会把系统的指令分为用户指令和特权指令，其目的也是希望，完成对一些指令权限的控制，如果在用户态执行特权指令就会引发相应的中断。在这里对象的访问也是如此，通过 private 等关键字，和相关方法，接口的定义。可以完成对一个对象的封装，只暴露出部分的方法，或接口与其他的对象（计算机）进行通信。</p>
+<p>同时对象之间的通信，需要遵守相关的协议，就像我们网络传输中的各种协议，对象之间的数据传递也要遵守相关的规范。五大原则（里氏替换和依赖倒置） 用子类去实例化父类的对象是可以的</p>
+<p>我们通过类的方式，来声明一个对象，类最重要的特征就是“能将什么消息发给他”</p>
+<p>同一个类的所有对象都可以接受相同的消息。</p>
+<h4 id="什么是接口"><a href="#什么是接口" class="headerlink" title="什么是接口"></a>什么是接口</h4><p>“接口”(Interface)规定了可对一个特定的对象发出哪些请求，是一组相关交互功能点定义的集合。注意是相关的功能，而不是随意的堆砌，接口只是定义，不涉及具体的实现，交互是双方的约定，它可以接受哪些参数，并返回什么参数。本质上是一个规则的设定。一定是多个功能而不是单一的功能，如CRUD，属于是一组接口。</p>
+<h4 id="什么是抽象类"><a href="#什么是抽象类" class="headerlink" title="什么是抽象类"></a>什么是抽象类</h4><p>为什么要定义一种只能继承而不能实例化的类呢？1.因为需要更高级别的抽象，如水果类，你不能new一个水果对象，因为水果是一个抽象的概念。2.抽象类的本质还是类，包含属性和方法。而接口，更关注的是功能，也就是方法，所以接口的使用会更加的灵活。</p>
+<p>抽象类是一个介于普通类和接口之间的抽象</p>
+<h4 id="面向对象的三大特性和五大原则"><a href="#面向对象的三大特性和五大原则" class="headerlink" title="面向对象的三大特性和五大原则"></a>面向对象的三大特性和五大原则</h4><p>封装，继承和多态</p>
+<p>一个有趣但不严谨的说法是：继承是子类使用父类的方法，而多态则是父类使用子类的方法（也可以向下）</p>
+<p>1.数据操作的实现被隐藏在对象中，只暴露相关的接口，供他人操作，且这些操作会因为各种关键字赋予不同的权限，封装的目的是为了保证数据的隐私性2.确保复杂度的隔离，大家不需要关注他人类的实现，只需要知道其相关方法的使用即可。</p>
+<p>2.继承 实现了一个 <strong>is-a</strong>的关系，下层的对象可以替换上层的对象。</p>
+<p>3.多态 分为运行时多态和编译时多态，编译时多态就是对下层对上层方法的重写，运行时多态是在对象调用时才知道。本质上是使用指向父类的指针和引用，可以调用子类的对象</p>
+<p>如果需要调用父类的实例或者是方法 要用super 关键字。一般用于调用父类的构造方法。</p>
+<p>1、单一职责原则SRP(Single Responsibility Principle)<br>类的功能要单一，不能包罗万象，跟杂货铺似的。<br>2、开放封闭原则OCP(Open－Close Principle)<br>一个模块对于拓展是开放的，对于修改是封闭的，想要增加功能热烈欢迎，想要修改，哼，一万个不乐意。<br>3、里式替换原则LSP(the Liskov Substitution Principle LSP)<br>子类可以替换父类出现在父类能够出现的任何地方。比如你能代表你爸去你姥姥家干活。哈哈~~<br>4、依赖倒置原则DIP(the Dependency Inversion Principle DIP)<br>高层次的模块不应该依赖于低层次的模块，他们都应该依赖于抽象。抽象不应该依赖于具体实现，具体实现应该依赖于抽象。就是你出国要说你是中国人，而不能说你是哪个村子的。比如说中国人是抽象的，下面有具体的xx省，xx市，xx县。你要依赖的是抽象的中国人，而不是你是xx村的。</p>
+<p>5、接口分离原则ISP(the Interface Segregation Principle ISP)<br>设计时采用多个与特定客户类有关的接口比采用一个通用的接口要好。就比如一个手机拥有打电话，看视频，玩游戏等功能，把这几个功能拆分成不同的接口，比在一个接口里要好的多。</p>
+<p><strong>衣接单里开</strong></p>
 
       
 
@@ -230,7 +237,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">ostep</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
         		</li>
       		
 		</ul>
@@ -286,7 +293,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/03/27/%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E5%B9%B6%E5%8F%91/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/05/22/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -300,18 +307,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/04/01/%E5%A4%9A%E7%A7%8D%E4%B8%80%E8%87%B4%E6%80%A7%E6%A8%A1%E5%9E%8B/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          多种一致性模型的区别 4.1
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/02/21/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%88%86%E9%A1%B52/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">第四章 分页2</div>
+    <a href="/2022/05/22/ostep%20%E7%A9%B6%E6%9E%81%E6%80%BB%E7%BB%93/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">OSTEP 第一轮复习</div>
       <i class="icon-circle-right"></i>
     </a>
   
